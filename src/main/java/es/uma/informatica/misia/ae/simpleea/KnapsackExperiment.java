@@ -28,7 +28,7 @@ public class KnapsackExperiment {
         Knapsack problem = new Knapsack(filename, instance);
 
         double[] crossoverProbs = { 0.2, 0.5, 0.8, 1.0 };
-        double[] bitFlipProbs = { 0.01, 0.02, 0.04, 0.08};
+        double[] bitFlipProbs = { 0.08, 0.12, 0.16};
 
         new File(outputDir).mkdirs();
         PrintWriter summaryOut = new PrintWriter(new File(outputDir, "ga_summary.csv"));
