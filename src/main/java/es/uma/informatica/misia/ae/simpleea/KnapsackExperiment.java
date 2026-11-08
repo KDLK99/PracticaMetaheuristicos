@@ -42,9 +42,11 @@ public class KnapsackExperiment {
                     Map<String, Double> parameters = buildParameters(
                             populationSize, maxEvaluations, pm, pc, initialSeed + i, problem.getOptimum());
                     EvolutionaryAlgorithm ga = new EvolutionaryAlgorithm(parameters, problem);
+                    long start = System.nanoTime();
                     RunResult result = ga.run();
+                    long timeMs = (System.nanoTime() - start) / 1_000_000;
 
-                    CsvWriter.writeSummary(summaryOut, "GA", instance, parameters, result);
+                    CsvWriter.writeSummary(summaryOut, "GA", instance, parameters, result, timeMs);
                     CsvWriter.writeTrace(traceOut, "GA", instance, parameters, result);
                     summaryOut.flush();
                     traceOut.flush();
