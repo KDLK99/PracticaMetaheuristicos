@@ -18,20 +18,20 @@ public class SAMain {
         String filename = args[3];
         Knapsack problem = new Knapsack(filename, instance);
 
-        Map<String, Double> parameters = readEAParameters(args, problem.getOptimum());
-        SimulatedAnnealing evolutionaryAlgorithm = new SimulatedAnnealing(parameters, problem);
+        Map<String, Double> parameters = readSAParameters(args, problem.getOptimum());
+        SimulatedAnnealing sa = new SimulatedAnnealing(parameters, problem);
 
         System.out.println("Running Knapsack problem from file: " + filename + ", instance: " + instance);
-        RunResult result = evolutionaryAlgorithm.run();
+        RunResult result = sa.run();
         System.out.println("Best fitness: " + result.getBestSolution().getFitness() + " / optimum: " + problem.getOptimum());
         System.out.println("Function evaluations: " + result.getFunctionEvaluations());
         System.out.println("Best solution evaluations: " + result.getBestSolutionEvaluations());
-        System.out.println("Random seed: " + parameters.get(EvolutionaryAlgorithm.RANDOM_SEED_PARAM).longValue());
-        System.out.println("Accepted moves: " + evolutionaryAlgorithm.getAcceptedMoves());
-        System.out.println("Null moves: " + evolutionaryAlgorithm.getNullMoves());
+        System.out.println("Random seed: " + parameters.get(SimulatedAnnealing.RANDOM_SEED_PARAM).longValue());
+        System.out.println("Accepted moves: " + sa.getAcceptedMoves());
+        System.out.println("Null moves: " + sa.getNullMoves());
     }
 
-    private static Map<String, Double> readEAParameters(String[] args, double optimum) {
+    private static Map<String, Double> readSAParameters(String[] args, double optimum) {
         Map<String, Double> parameters = new HashMap<>();
         parameters.put(SimulatedAnnealing.INITIAL_TEMPERATURE_PARAM, Double.parseDouble(args[0]));
         parameters.put(SimulatedAnnealing.ALPHA_PARAM, Double.parseDouble(args[1]));
@@ -41,10 +41,10 @@ public class SAMain {
         if (args.length > 5) {
             randomSeed = Long.parseLong(args[5]);
         }
-        parameters.put(EvolutionaryAlgorithm.RANDOM_SEED_PARAM, (double) randomSeed);
+        parameters.put(SimulatedAnnealing.RANDOM_SEED_PARAM, (double) randomSeed);
 
         if (optimum > 0) {
-            parameters.put(EvolutionaryAlgorithm.OPTIMUM_PARAM, optimum);
+            parameters.put(SimulatedAnnealing.OPTIMUM_PARAM, optimum);
         }
 
         return parameters;
